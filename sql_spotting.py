@@ -25,4 +25,4 @@ def delete_spott(imm: str, mod: str, msn: int, comp: str, mil: int, ser: int, li
                 AND Catalogue = '{cat}' AND Commentaire = '{comm}' AND Achievement = '{ach}' AND Image = '{img}'""")
     conn.commit()
 
-delete_spott("F-ABCD", "A320-200", 217, "Air France", 0, 1, "", "2023/04/11", "LFBO", "Spotting à LFBO", "Test", "A remplir auto", "C:Images")
+#delete_spott("F-ABCD", "A320-200", 217, "Air France", 0, 1, "", "2023/04/11", "LFBO", "Spotting à LFBO", "Test", "A remplir auto", "C:Images")
