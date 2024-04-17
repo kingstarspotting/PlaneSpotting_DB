@@ -50,5 +50,28 @@ def get_nombre_msn(modele, msn):
     conn.close()
     return nombre+1
 
+# A continuer
+def get_achievement(nbr_imm, nbr_msn):
+    achievement = ""
+    if nbr_imm == 1:
+        print(achievement) 
 
-ajout_spott("F-GXLI", "Beluga XL", 217, "Airbus", 0, 1, "", "2023/04/11", "LFBO", "Spotting à LFBO", "Test", "A remplir auto", "C:Images", 1, 1)
+def get_immatriculations(modele, msn):
+    """
+    Fonction renvoyant toutes les immatriculations enregistrées qu'a eu un avion. 
+    """
+    conn = sqlite3.connect(path)
+    cursor = conn.cursor()
+    cursor.execute(f"""SELECT DISTINCT Immatriculation FROM Spotting WHERE Modele = '{modele}' AND Msn = {msn}""")
+    immatriculations = cursor.fetchall() # Sélection du nombre
+    conn.close()
+    # Conversion en chaine et 
+    for i in range(len(immatriculations)):
+        immatriculations[i] = str(immatriculations[i]).replace("('", "")
+        immatriculations[i] = str(immatriculations[i]).replace("',)", "")
+    return immatriculations
+
+#ajout_spott("F-GXLI", "Beluga XL", 217, "Airbus", 0, 1, "", "2023/04/11", "LFBO", "Spotting à LFBO", "Test", "A remplir auto", "C:Images", 1, 1)
+
+x = get_immatriculations("A320-200", 217)
+print(x)
