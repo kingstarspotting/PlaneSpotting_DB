@@ -3,17 +3,16 @@ from settings_functions import get_database
 
 path = get_database()
 
-spotting_db = ("""Id_spott, Immatriculation, Modele, Msn, Compagnie, Militaire, Service, Livree, Date, Aeroport, Catalogue, Commentaire, Achievement, Image""")
+spotting_db = ("""Id_spott, Immatriculation, Modele, Msn, Compagnie, Militaire, Service, Livree, Date, Aeroport, Catalogue, Commentaire, Achievement, Image, Nbr_Immat, Nbr_Msn""")
 
-
-def ajout_spott(imm: str, mod: str, msn: int, comp: str, mil: int, ser: int, liv: str, dat: str, aer: str, cat: str, comm: str, ach: str, img: str):
+def ajout_spott(imm: str, mod: str, msn: int, comp: str, mil: int, ser: int, liv: str, dat: str, aer: str, cat: str, comm: str, ach: str, img: str, nbr_imm: int, nbr_msn: int):
     # Champs
     champs = spotting_db[len("Id_spott, "):]
     # Initialisation de la db
     conn = sqlite3.connect(path)
     cursor = conn.cursor()
     # Ajout à la table
-    cursor.execute(f"""INSERT INTO Spotting({champs}) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""", (imm, mod, msn, comp, mil, ser, liv, dat, aer, cat, comm, ach, img))
+    cursor.execute(f"""INSERT INTO Spotting({champs}) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""", (imm, mod, msn, comp, mil, ser, liv, dat, aer, cat, comm, ach, img, nbr_imm, nbr_msn))
     # Validation et exécution
     conn.commit()
     conn.close()
@@ -27,15 +26,23 @@ def delete_spott(imm: str, mod: str, msn: int, comp: str, mil: int, ser: int, li
     conn.commit()
     conn.close()
 
-def get_nombre_immatriculation(immatriculation):
+def get_nombre_immatriculation(immatriculation, modele, msn):
+    """
+    Compte le nombre de fois ou l'immatriculation sur ce modèle a été spotté (en comptant le spott enregistré)
+
+    """
     conn = sqlite3.connect(path)
     cursor = conn.cursor()
-    cursor.execute(f"""SELECT COUNT(DISTINCT Date) FROM Spotting WHERE Immatriculation = '{immatriculation}'""")
+    cursor.execute(f"""SELECT COUNT(DISTINCT Date) FROM Spotting WHERE Immatriculation = '{immatriculation}' AND Modele = '{modele}' AND Msn = {msn}""")
     nombre = cursor.fetchone()[0] # Sélection du nombre
     conn.close()
     return nombre+1
 
 def get_nombre_msn(modele, msn):
+    """
+    Compte le nombre de fois ou ce modèle (msn) a été spotté (en comptant le spott enregistré)
+
+    """
     conn = sqlite3.connect(path)
     cursor = conn.cursor()
     cursor.execute(f"""SELECT COUNT(DISTINCT Date) FROM Spotting WHERE Modele = '{modele}' AND Msn = {msn}""")
@@ -44,4 +51,4 @@ def get_nombre_msn(modele, msn):
     return nombre+1
 
 
-#delete_spott("F-ABCD", "A320-200", 217, "Air France", 0, 1, "", "2023/04/11", "LFBO", "Spotting à LFBO", "Test", "A remplir auto", "C:Images")
+ajout_spott("F-GXLI", "Beluga XL", 217, "Airbus", 0, 1, "", "2023/04/11", "LFBO", "Spotting à LFBO", "Test", "A remplir auto", "C:Images", 1, 1)
