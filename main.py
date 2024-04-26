@@ -12,7 +12,7 @@ class MainWindow(QMainWindow):
         # Set the dark theme
         QApplication.setStyle(QStyleFactory.create('Fusion'))
         app.setPalette(QPalette(QColor(53, 53, 53), QColor(85, 85, 85)))
-        app.setStyleSheet('QToolTip { color: #ffffff; background-color: #2a82da; border: 1px solid white; }')
+        app.setStyleSheet('QToolTip { color: #ffffff; background-color: #1c1c1c; border: 1px solid white; }')
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
