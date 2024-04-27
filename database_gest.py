@@ -25,6 +25,22 @@ CREATE TABLE "Spotting" (
 	PRIMARY KEY("Id_spott" AUTOINCREMENT));
 """)
     conn.commit()
-    cursor.execute()
+    cursor.execute("""
+CREATE TABLE "Vols" (
+	"Id_vol"	INTEGER NOT NULL UNIQUE,
+	"Indicatif"	TEXT NOT NULL,
+	"Depart"	TEXT NOT NULL,
+	"Arrivee"	TEXT NOT NULL,
+	"Immatriculation"	TEXT NOT NULL,
+	"Msn"	INTEGER,
+	"Modele"	TEXT NOT NULL,
+	"Compagnie"	TEXT NOT NULL,
+	"Date"	TEXT NOT NULL,
+	PRIMARY KEY("Id_vol" AUTOINCREMENT)
+);
+""")
+    conn.commit()
     conn.close()
     return 1
+
+create_database()
