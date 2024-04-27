@@ -1,5 +1,7 @@
 import sqlite3
-from constantes import path
+from settings_functions import get_database
+
+path = get_database()
 
 def create_database():
     conn = sqlite3.connect(path)
