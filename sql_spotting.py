@@ -28,8 +28,7 @@ def delete_spott(imm: str, mod: str, msn: int, comp: str, mil: int, ser: int, li
 
 def get_nombre_immatriculation(immatriculation, modele, msn):
     """
-    Compte le nombre de fois ou l'immatriculation sur ce modèle a été spotté (en comptant le spott enregistré)
-
+    Compte le nombre de fois ou l'immatriculation sur cet avion a été spotté (en comptant le spott enregistré)
     """
     conn = sqlite3.connect(path)
     cursor = conn.cursor()
@@ -56,7 +55,7 @@ def get_achievement(nbr_imm, nbr_msn):
     if nbr_imm == 1:
         print(achievement) 
 
-def get_immatriculations(modele, msn):
+def get_all_immatriculations(modele, msn):
     """
     Fonction renvoyant toutes les immatriculations enregistrées qu'a eu un avion. 
     """
@@ -72,6 +71,3 @@ def get_immatriculations(modele, msn):
     return immatriculations
 
 #ajout_spott("F-GXLI", "Beluga XL", 217, "Airbus", 0, 1, "", "2023/04/11", "LFBO", "Spotting à LFBO", "Test", "A remplir auto", "C:Images", 1, 1)
-
-x = get_immatriculations("A320-200", 217)
-print(x)
