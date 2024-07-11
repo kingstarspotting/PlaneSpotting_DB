@@ -27,7 +27,7 @@ class Menu(QWidget):
         
         self.toggle_button = QPushButton(self)
         self.toggle_button.setFixedSize(55, 55)
-        self.toggle_button.setIcon(QIcon("media\\img\\Home_sombre.png"))
+        self.toggle_button.setIcon(QIcon("media\\img\\menu_sombre.png"))
         self.toggle_button.setIconSize(QSize(25, 25))
         self.toggle_button.setStyleSheet("""
             QPushButton {
@@ -60,9 +60,10 @@ class Menu(QWidget):
         self.menu_layout.setContentsMargins(10, 70, 10, 10)  # Marge autour du layout
         
         # Ajouter les boutons au menu
-        self.button1 = QPushButton("Option 1", self.menu)
-        self.button2 = QPushButton("Option 2", self.menu)
-        self.button3 = QPushButton("Option 3", self.menu)
+        self.button_home = QPushButton("Accueil", self.menu)
+        self.button_spotting = QPushButton("Spotting", self.menu)
+        self.button_vol = QPushButton("Vols", self.menu)
+        self.button_parametre = QPushButton("Paramètres", self.menu)
         
         # Appliquer le style sans gras pour les boutons du menu
         button_style = """
@@ -73,26 +74,29 @@ class Menu(QWidget):
                 border-radius: 5px;
                 padding: 10px;
                 text-align: center;
-                margin: 5px; /* Marge autour des boutons */
-                font-size: 14px; /* Taille de la police */
+                margin: 5px;
+                font-size: 14px;
             }
             QPushButton:hover {
                 background-color: #4d4d4d;
             }
         """
-        self.button1.setStyleSheet(button_style)
-        self.button2.setStyleSheet(button_style)
-        self.button3.setStyleSheet(button_style)
+        self.button_home.setStyleSheet(button_style)
+        self.button_spotting.setStyleSheet(button_style)
+        self.button_vol.setStyleSheet(button_style)
+        self.button_parametre.setStyleSheet(button_style)
         
         # Ajouter les boutons au layout vertical
-        self.menu_layout.addWidget(self.button1)
-        self.menu_layout.addWidget(self.button2)
-        self.menu_layout.addWidget(self.button3)
+        self.menu_layout.addWidget(self.button_home)
+        self.menu_layout.addWidget(self.button_spotting)
+        self.menu_layout.addWidget(self.button_vol)
+        self.menu_layout.addWidget(self.button_parametre)
         
         # Connecter les signaux clicked des boutons à leurs fonctions respectives
-        self.button1.clicked.connect(lambda: self.on_button_clicked("Option 1"))
-        self.button2.clicked.connect(lambda: self.on_button_clicked("Option 2"))
-        self.button3.clicked.connect(lambda: self.on_button_clicked("Option 3"))
+        self.button_home.clicked.connect(lambda: self.open_home())
+        self.button_spotting.clicked.connect(lambda: self.open_spotting())
+        self.button_vol.clicked.connect(lambda: self.open_flight())
+        self.button_parametre.clicked.connect(lambda: self.open_settings())
         
         self.toggle_button.clicked.connect(self.toggle_menu)
         
@@ -113,5 +117,14 @@ class Menu(QWidget):
         self.animation.setEndValue(end_rect_menu)
         self.animation.start()
     
-    def on_button_clicked(self, option):
-        print(f"Option '{option}' clicked!")
+    def open_spotting(self):
+        print("Spotting ouvert")
+    
+    def open_flight(self):
+        print("Vols ouvert")
+    
+    def open_settings(self):
+        print("Paramètres ouverts")
+    
+    def open_home(self):
+        print("Accueil ouvert")
