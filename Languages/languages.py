@@ -11,7 +11,7 @@ def get_language():
     config.read("Settings\\config.ini")
     return config["settings"]["language"]
 
-def get_text_lang(section: str, var: str) -> str:
+def get_text(section: str, var: str) -> str:
     """
     Fonction qui permet d'obtenir un texte en fonction de la langue sélectionnée par l'utilisateur
     \n

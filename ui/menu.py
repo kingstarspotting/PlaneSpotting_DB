@@ -3,7 +3,7 @@ from PyQt5.QtCore import QRect, QPropertyAnimation, Qt, QEasingCurve, QSize
 from PyQt5.QtGui import QIcon, QPixmap
 
 # Bibliothèque de langue
-from languages.languages import get_text_lang
+from languages.languages import get_text
 
 class Menu(QWidget):
     def __init__(self, parent=None):
@@ -63,11 +63,11 @@ class Menu(QWidget):
         self.menu_layout.setContentsMargins(10, 70, 10, 10)  # Marge autour du layout
         
         # Ajouter les boutons au menu
-        self.button_home = QPushButton(get_text_lang("menu", "home"), self.menu)
-        self.button_spotting = QPushButton(get_text_lang("menu", "spotting"), self.menu)
-        self.button_vol = QPushButton(get_text_lang("menu", "flight"), self.menu)
-        self.button_stats = QPushButton(get_text_lang("menu", "stats"), self.menu)
-        self.button_parametre = QPushButton(get_text_lang("menu", "settings"), self.menu)
+        self.button_home = QPushButton(get_text("menu", "home"), self.menu)
+        self.button_spotting = QPushButton(get_text("menu", "spotting"), self.menu)
+        self.button_vol = QPushButton(get_text("menu", "flight"), self.menu)
+        self.button_stats = QPushButton(get_text("menu", "stats"), self.menu)
+        self.button_parametre = QPushButton(get_text("menu", "settings"), self.menu)
         
         # Appliquer le style sans gras pour les boutons du menu
         button_style = """
