@@ -1,7 +1,11 @@
 import sqlite3
 from settings_functions import get_database
 
-path = get_database()
+#path = get_database()
+
+path = "database\\main_database2.db"
+
+
 
 def create_database():
     conn = sqlite3.connect(path)
@@ -24,7 +28,9 @@ CREATE TABLE "Spotting" (
 	"Image"	TEXT,
 	"Nbr_Immat"	INTEGER,
 	"Nbr_Msn"	INTEGER,
-	PRIMARY KEY("Id_spott" AUTOINCREMENT));
+	"Fav"	INTEGER,
+	PRIMARY KEY("Id_spott" AUTOINCREMENT)
+);
 """)
     conn.commit()
     cursor.execute("""
@@ -33,12 +39,26 @@ CREATE TABLE "Vols" (
 	"Indicatif"	TEXT NOT NULL,
 	"Depart"	TEXT NOT NULL,
 	"Arrivee"	TEXT NOT NULL,
+	"Duree"	REAL,
 	"Immatriculation"	TEXT NOT NULL,
 	"Msn"	INTEGER,
 	"Modele"	TEXT NOT NULL,
 	"Compagnie"	TEXT NOT NULL,
 	"Date"	TEXT NOT NULL,
 	PRIMARY KEY("Id_vol" AUTOINCREMENT)
+);
+""")
+    conn.commit()
+    cursor.execute("""
+CREATE TABLE "Objectif_spotting" (
+	"Id_Objs"	INTEGER NOT NULL UNIQUE,
+	"Type"	TEXT NOT NULL,
+	"Immatriculation"	TEXT,
+	"Modele"	TEXT,
+	"Msn"	INTEGER,
+	"Compagnie"	TEXT,
+	"Livree"	TEXT,
+	PRIMARY KEY("Id_Objs" AUTOINCREMENT)
 );
 """)
     conn.commit()
