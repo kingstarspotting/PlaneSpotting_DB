@@ -2,6 +2,9 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton, QFrame
 from PyQt5.QtCore import QRect, QPropertyAnimation, Qt, QEasingCurve, QSize
 from PyQt5.QtGui import QIcon, QPixmap
 
+# Bibliothèque de langue
+from languages.languages import get_text_lang
+
 class Menu(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -60,10 +63,11 @@ class Menu(QWidget):
         self.menu_layout.setContentsMargins(10, 70, 10, 10)  # Marge autour du layout
         
         # Ajouter les boutons au menu
-        self.button_home = QPushButton("Accueil", self.menu)
-        self.button_spotting = QPushButton("Spotting", self.menu)
-        self.button_vol = QPushButton("Vols", self.menu)
-        self.button_parametre = QPushButton("Paramètres", self.menu)
+        self.button_home = QPushButton(get_text_lang("menu", "home"), self.menu)
+        self.button_spotting = QPushButton(get_text_lang("menu", "spotting"), self.menu)
+        self.button_vol = QPushButton(get_text_lang("menu", "flight"), self.menu)
+        self.button_stats = QPushButton(get_text_lang("menu", "stats"), self.menu)
+        self.button_parametre = QPushButton(get_text_lang("menu", "settings"), self.menu)
         
         # Appliquer le style sans gras pour les boutons du menu
         button_style = """
@@ -84,18 +88,21 @@ class Menu(QWidget):
         self.button_home.setStyleSheet(button_style)
         self.button_spotting.setStyleSheet(button_style)
         self.button_vol.setStyleSheet(button_style)
+        self.button_stats.setStyleSheet(button_style)
         self.button_parametre.setStyleSheet(button_style)
         
         # Ajouter les boutons au layout vertical
         self.menu_layout.addWidget(self.button_home)
         self.menu_layout.addWidget(self.button_spotting)
         self.menu_layout.addWidget(self.button_vol)
+        self.menu_layout.addWidget(self.button_stats)
         self.menu_layout.addWidget(self.button_parametre)
         
         # Connecter les signaux clicked des boutons à leurs fonctions respectives
         self.button_home.clicked.connect(lambda: self.open_home())
         self.button_spotting.clicked.connect(lambda: self.open_spotting())
         self.button_vol.clicked.connect(lambda: self.open_flight())
+        self.button_vol.clicked.connect(lambda: self.open_stats())
         self.button_parametre.clicked.connect(lambda: self.open_settings())
         
         self.toggle_button.clicked.connect(self.toggle_menu)
@@ -125,6 +132,9 @@ class Menu(QWidget):
     
     def open_settings(self):
         print("Paramètres ouverts")
+    
+    def open_stats(self):
+        print("Statistiques ouverts")
     
     def open_home(self):
         print("Accueil ouvert")
