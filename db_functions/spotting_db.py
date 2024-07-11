@@ -7,7 +7,7 @@ path = get_database()
 spotting_db = ("""Id_spott, Immatriculation, Modele, Msn, Compagnie, Militaire, Service, Livree, Date, Aeroport, Catalogue, Commentaire, Achievement, Image, Nbr_Immat, Nbr_Msn""")
 
 
-class Spotting_control:
+class Spotting_db:
     def __init__(self):
         pass
 
