@@ -4,7 +4,7 @@ from settings_functions import get_database
 
 path = get_database()
 
-flight_db = ("""Id_vol, Indicatif, Depart, Arrivee, Immatriculation, Msn, Modele, Compagnie, Date""")
+flight_db = ("""Id_vol, Indicatif, Depart, Arrivee, Immatriculation, Msn, Modele, Compagnie, Date, Fav""")
 
 class flight_control:
     def __init__(self):
@@ -18,4 +18,9 @@ class flight_control:
         if (not type(msn) == int):
             return False
         # A compléter
-        
+
+    def add_vol(self, ind: str, dep: str, arr: str, imm: str, msn: int, mod: str, comp: str, date: str, fav: int):
+        """
+        Ajoute le vol à la base de donnée
+        """
+        champs = flight_db[len("Id_vol, "):]
