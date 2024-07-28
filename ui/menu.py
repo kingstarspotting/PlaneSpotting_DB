@@ -3,7 +3,7 @@ from PyQt5.QtCore import QRect, QPropertyAnimation, Qt, QEasingCurve, QSize
 from PyQt5.QtGui import QIcon, QPixmap
 
 # Bibliothèque de langue
-from languages.languages import get_text
+from Languages.languages import get_text
 
 class Menu(QWidget):
     def __init__(self, parent=None):
