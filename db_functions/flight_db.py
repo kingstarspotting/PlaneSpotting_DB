@@ -1,5 +1,5 @@
 import sqlite3
-from settings_functions import get_database
+from Functions.settings_functions import get_database
 
 
 path = get_database()

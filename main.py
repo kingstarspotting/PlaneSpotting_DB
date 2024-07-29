@@ -1,8 +1,8 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.QtCore import Qt
-from ui.menu import Menu
-from Languages.languages import get_text
+from Ui.menu import Menu
+from Functions.languages import get_text
 
 class MainWindow(QMainWindow):
     def __init__(self):

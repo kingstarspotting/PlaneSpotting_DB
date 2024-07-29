@@ -1,13 +1,10 @@
 import sqlite3
 from Functions.settings_functions import get_database
 
-
 path = get_database()
+spotting_db = ("""Id_spott, Immatriculation, Modele, Msn, Compagnie, Militaire, Service, Livree, Date, Aeroport, Catalogue, Commentaire, Achievement, Image, Nbr_Immat, Nbr_Msn, Fav""")
 
-spotting_db = ("""Id_spott, Immatriculation, Modele, Msn, Compagnie, Militaire, Service, Livree, Date, Aeroport, Catalogue, Commentaire, Achievement, Image, Nbr_Immat, Nbr_Msn""")
-
-
-class Spotting_db:
+class Spotting:
     def __init__(self):
         pass
 
@@ -22,18 +19,18 @@ class Spotting_db:
         else:
             return True
     
-    def add_spott(self, imm: str, mod: str, msn: int, comp: str, mil: int, ser: int, liv: str, dat: str, aer: str, cat: str, comm: str, ach: str, img: str, nbr_imm: int, nbr_msn: int):
+    def add_spott(self, imm, mod, msn, comp, mil, ser, liv, dat, aer, cat, comm, ach, img, nbr_imm, nbr_msn, fav):
         # Champs
         champs = spotting_db[len("Id_spott, "):]
         # Initialisation de la db
         conn = sqlite3.connect(path)
         cursor = conn.cursor()
         # Ajout à la table
-        cursor.execute(f"""INSERT INTO Spotting({champs}) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""", (imm, mod, msn, comp, mil, ser, liv, dat, aer, cat, comm, ach, img, nbr_imm, nbr_msn))
+        cursor.execute(f"""INSERT INTO Spotting({champs}) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""", (imm, mod, msn, comp, mil, ser, liv, dat, aer, cat, comm, ach, img, nbr_imm, nbr_msn, fav))
         # Validation et exécution
         conn.commit()
         conn.close()
-    
+
     def delete_spott(self, imm: str, mod: str, msn: int, comp: str, mil: int, ser: int, liv: str, dat: str, aer: str, cat: str, comm: str, ach: str, img: str):
         # Initialisation de la db
         conn = sqlite3.connect(path)
@@ -54,38 +51,5 @@ class Spotting_db:
         conn.close()
         return nombre+1
 
-    def get_nombre_msn(self, modele, msn):
-        """
-        Compte le nombre de fois ou ce modèle (msn) a été spotté (en comptant le spott enregistré)
-
-        """
-        conn = sqlite3.connect(path)
-        cursor = conn.cursor()
-        cursor.execute(f"""SELECT COUNT(DISTINCT Date) FROM Spotting WHERE Modele = '{modele}' AND Msn = {msn}""")
-        nombre = cursor.fetchone()[0] # Sélection du nombre
-        conn.close()
-        return nombre+1
-
-    # A continuer
-    def get_achievement(self, nbr_imm, nbr_msn):
-        achievement = ""
-        if nbr_imm == 1:
-            print(achievement) 
-
-    def get_all_immatriculations(self, modele, msn):
-        """
-        Fonction renvoyant toutes les immatriculations enregistrées qu'a eu un avion. 
-        """
-        conn = sqlite3.connect(path)
-        cursor = conn.cursor()
-        cursor.execute(f"""SELECT DISTINCT Immatriculation FROM Spotting WHERE Modele = '{modele}' AND Msn = {msn}""")
-        immatriculations = cursor.fetchall() # Sélection du nombre
-        conn.close()
-        # Conversion en chaine et 
-        for i in range(len(immatriculations)):
-            immatriculations[i] = str(immatriculations[i]).replace("('", "")
-            immatriculations[i] = str(immatriculations[i]).replace("',)", "")
-        return immatriculations
-
-
-
+test = Spotting
+test.add_spott("F-ABCD" ,"A380", 3, "Air Test", 1, 1, "Livrée Test", "2020/12/26", "LFBO", "Spotting à Toulouse Blagnac", "Magnifique Spott", "Première capture", "AAA", 1, 1, 1, 1)
