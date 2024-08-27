@@ -1,11 +1,13 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton, QFrame
-from PyQt5.QtCore import QRect, QPropertyAnimation, Qt, QEasingCurve, QSize
+from PyQt5.QtCore import QRect, QPropertyAnimation, Qt, QEasingCurve, QSize, pyqtSignal
 from PyQt5.QtGui import QIcon, QPixmap
 
 # Bibliothèque de langue
 from languages.languages import get_text
 
 class Menu(QWidget):
+    menu_toggled = pyqtSignal(bool)  # Signal pour notifier le redimensionnement
+
     def __init__(self, parent=None):
         super().__init__(parent)
         
@@ -102,7 +104,7 @@ class Menu(QWidget):
         self.button_home.clicked.connect(lambda: self.open_home())
         self.button_spotting.clicked.connect(lambda: self.open_spotting())
         self.button_vol.clicked.connect(lambda: self.open_flight())
-        self.button_vol.clicked.connect(lambda: self.open_stats())
+        self.button_stats.clicked.connect(lambda: self.open_stats())
         self.button_parametre.clicked.connect(lambda: self.open_settings())
         
         self.toggle_button.clicked.connect(self.toggle_menu)
@@ -117,12 +119,16 @@ class Menu(QWidget):
     def toggle_menu(self):
         if self.menu.width() == 160:
             end_rect_menu = QRect(0, 0, 0, self.height())
+            menu_open = False
         else:
             end_rect_menu = QRect(0, 0, 160, self.height())
+            menu_open = True
         
         self.animation.setStartValue(self.menu.geometry())
         self.animation.setEndValue(end_rect_menu)
         self.animation.start()
+
+        self.menu_toggled.emit(menu_open)  # Emettre le signal avec l'état du menu
     
     def open_spotting(self):
         print("Spotting ouvert")
