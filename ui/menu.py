@@ -3,7 +3,7 @@ from PyQt5.QtCore import QRect, QPropertyAnimation, Qt, QEasingCurve, QSize, pyq
 from PyQt5.QtGui import QIcon, QPixmap
 
 # Bibliothèque de langue
-from languages.languages import get_text
+from Functions.languages import get_text
 
 class Menu(QWidget):
     menu_toggled = pyqtSignal(bool)  # Signal pour notifier le redimensionnement
