@@ -8,7 +8,7 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         
-        self.setWindowTitle("Menu dépliable latéral")
+        self.setWindowTitle("Aero Database")
         
         # Appliquer un style sombre à l'application
         self.setStyleSheet("""
@@ -30,9 +30,6 @@ class MainWindow(QMainWindow):
         self.title_label = QLabel("Bonjour", self)
         self.title_label.setAlignment(Qt.AlignCenter)
         self.title_label.setGeometry(0, 50, self.width(), 50)  # Ajustez la position et la taille selon vos besoins
-        
-        self.t = QLabel("Bonjour", self)
-        self.t.setGeometry(0, 50, self.width(), 50)  # Ajustez la position et la taille selon vos besoins
 
         self.showMaximized()  # Maximiser la fenêtre dès le lancement
         self.show()
@@ -55,7 +52,7 @@ class MainWindow(QMainWindow):
         self.central_widget.menu.setGeometry(0, 0, self.central_widget.menu.width(), self.height())
         # Repositionner le titre lorsque la fenêtre est redimensionnée
         self.title_label.setGeometry(0, 50, self.width(), 50)
-        self.t.setGeometry(0, 50, self.width(), 50)
+
     
 if __name__ == "__main__":
     app = QApplication(sys.argv)
