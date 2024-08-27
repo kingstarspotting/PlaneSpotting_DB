@@ -1,11 +1,11 @@
 from configparser import ConfigParser
 
-def get_settings(file, group, var):
+def get_settings(group, var):
     """
     Permet d'obtenir des paramètres divers
     """
     config = ConfigParser()
-    config.read(file)
+    config.read("Settings\\config.ini")
     return config[group][var]
 
 def get_database():
