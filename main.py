@@ -34,25 +34,6 @@ class MainWindow(QMainWindow):
         self.showMaximized()  # Maximiser la fenêtre dès le lancement
         self.show()
 
-        # Connecter le signal menu_toggled à une méthode pour redimensionner la fenêtre
-        self.central_widget.menu_toggled.connect(self.resize_window)
-
-    def resize_window(self, menu_open):
-        if menu_open:
-            self.resize(self.width() + 160, self.height())
-        else:
-            self.resize(self.width() - 160, self.height())
-
-    def resizeEvent(self, event):
-        super().resizeEvent(event)
-        # Repositionner le bouton lorsque la fenêtre est redimensionnée
-        self.central_widget.toggle_button.raise_()
-        self.central_widget.toggle_button.move(10, 10)
-        # Redimensionner le menu en fonction de la hauteur de la fenêtre
-        self.central_widget.menu.setGeometry(0, 0, self.central_widget.menu.width(), self.height())
-        # Repositionner le titre lorsque la fenêtre est redimensionnée
-        self.title_label.setGeometry(0, 50, self.width(), 50)
-
     
 if __name__ == "__main__":
     app = QApplication(sys.argv)
