@@ -4,9 +4,11 @@ from PyQt5.QtGui import QIcon
 
 # Bibliothèque de langue
 from Functions.languages import get_text
+from Functions.settings_functions import get_settings
 
 class Menu(QWidget):
     menu_toggled = pyqtSignal(bool)  # Signal pour notifier le redimensionnement
+    
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -33,7 +35,6 @@ class Menu(QWidget):
         """)
 
         self.menu = QFrame(self)
-        self.menu.setGeometry(0, 0, 160, self.height())  # Toujours visible (largeur 160)
         self.menu.setStyleSheet("background-color: #313131;")
         
         # Layout vertical pour le menu
@@ -86,12 +87,12 @@ class Menu(QWidget):
         self.button_stats.clicked.connect(lambda: self.open_stats())
         self.button_parametre.clicked.connect(lambda: self.open_settings())
         
-        self.setGeometry(0, 0, 160, parent.height())
-
     def resizeEvent(self, event):
         super().resizeEvent(event)
-        # Redimensionner le menu en fonction de la hauteur de la fenêtre
-        self.menu.setGeometry(0, 0, self.menu.width(), self.height())
+        menu_size = float(get_settings("settings", "menu_size"))
+        # Fixer la largeur du menu à x% de la largeur de la fenêtre parente
+        menu_width = int(self.parent().width() * menu_size)
+        self.menu.setGeometry(0, 0, menu_width, self.height())
     
     def open_spotting(self):
         print("Spotting ouvert")
@@ -107,3 +108,4 @@ class Menu(QWidget):
     
     def open_home(self):
         print("Accueil ouvert")
+
