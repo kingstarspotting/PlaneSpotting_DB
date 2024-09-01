@@ -93,6 +93,8 @@ class Menu(QWidget):
         # Fixer la largeur du menu à x% de la largeur de la fenêtre parente
         menu_width = int(self.parent().width() * menu_size)
         self.menu.setGeometry(0, 0, menu_width, self.height())
+        print(f"Menu size: {self.menu.size()}, Menu position: {self.menu.pos()}")
+
     
     def open_spotting(self):
         print("Spotting ouvert")

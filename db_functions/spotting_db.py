@@ -4,12 +4,25 @@ from Functions.settings_functions import get_database
 
 path = get_database()
 
-spotting_db = ("""Id_spott, Immatriculation, Modele, Msn, Compagnie, Militaire, Service, Livree, Date, Aeroport, Catalogue, Commentaire, Achievement, Image, Nbr_Immat, Nbr_Msn""")
+spotting_db = ("""Id_spott, Immatriculation, Modele, Msn, Compagnie, Militaire, Service, Livree, Date, Aeroport, Catalogue, Commentaire, Achievement, Image, Nbr_Immat, Nbr_Msnk, Fav""")
 
 
 class Spotting_db:
     def __init__(self):
         pass
+
+    def database_display(self):
+        """
+        Fonction récupérant les données de la base de donnée afin de les afficher par la suite
+        """
+        conn = sqlite3.connect(path)
+        cursor = conn.cursor()
+        cursor.execute(f"""SELECT Immatriculation, Modele, Msn, Compagnie, Militaire, Service, Livree, Date, Aeroport, Catalogue, Commentaire, Achievement, Nbr_Immat, Nbr_Msn, Fav FROM Spotting""")
+        rows = cursor.fetchall() # Sélection du nombre
+        conn.close()
+        return rows
+
+
 
     def check_data(self, imm: str, mod: str, msn: int, comp: str, mil: int, ser: int, liv: str, dat: str, aer: str, cat: str, comm: str, ach: str, img: str):
         """
@@ -59,12 +72,15 @@ class Spotting_db:
         Compte le nombre de fois ou ce modèle (msn) a été spotté (en comptant le spott enregistré)
 
         """
-        conn = sqlite3.connect(path)
-        cursor = conn.cursor()
-        cursor.execute(f"""SELECT COUNT(DISTINCT Date) FROM Spotting WHERE Modele = '{modele}' AND Msn = {msn}""")
-        nombre = cursor.fetchone()[0] # Sélection du nombre
-        conn.close()
-        return nombre+1
+        if msn:
+            conn = sqlite3.connect(path)
+            cursor = conn.cursor()
+            cursor.execute(f"""SELECT COUNT(DISTINCT Date) FROM Spotting WHERE Modele = '{modele}' AND Msn = {msn}""")
+            nombre = cursor.fetchone()[0] # Sélection du nombre
+            conn.close()
+            return nombre+1
+        else:
+            return False
 
     # A continuer
     def get_achievement(self, nbr_imm, nbr_msn):
